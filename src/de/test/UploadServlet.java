@@ -1,5 +1,6 @@
 package de.test;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -7,42 +8,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.sql.DataSource;
 import java.io.*;
 import java.sql.*;
 
-@WebServlet(name = "UploadServlet", urlPatterns = {"/upload", "/servlets/shalom"})
+@WebServlet(name = "UploadServlet", value = "/upload")
 @MultipartConfig
 public class UploadServlet extends HttpServlet {
 
+    @Resource(name="jdbc/db")
+    private DataSource dataSource;
     PrintWriter out;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String connectionUrl = "jdbc:mysql://localhost:3306/picturerate?useSSL=false&serverTimezone=Europe/Berlin";
-        String user = "root";
-        String pw = "root";
+        String SQL_UPLOAD = "INSERT INTO picture(data, name) VALUES (?,?)";
         out = response.getWriter();
         int result = 0;
-        Connection con = null;
 
         Part part = request.getPart("image");
         String name = request.getParameter("name");
 
         if(part != null){
-            try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                con = DriverManager.getConnection(connectionUrl, user, pw);
-                PreparedStatement ps = con.prepareStatement("insert INTO picture(data, name) values (?,?)");
+            try(Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPLOAD)){
+
                 InputStream is = part.getInputStream();
 
-                ps.setBlob(1, is);
-                ps.setString(2,name);
+                statement.setBlob(1, is);
+                statement.setString(2,name);
 
-                result = ps.executeUpdate();
+                result = statement.executeUpdate();
                 if(result > 0){
                     out.println("<h1>image inserted sucessfully</h1>");
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException e) {
                 out.println(e);
             }
         }

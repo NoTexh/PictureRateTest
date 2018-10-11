@@ -13,29 +13,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(name = "GetImageServlet", value = "/images/*")
-public class GetImageServlet extends HttpServlet {
+@WebServlet(name = "NameSearchServlet", value = "/image/*")
+public class NameSearchServlet extends HttpServlet {
 
-    private static final String SQL_FIND_NAME = "SELECT data FROM picture WHERE name = ?";
-
-    /*
-     * Ist in der context.xml des Tomcat-Servers definiert :
-     * <Resource
-     *    name="jdbc/db" type="javax.sql.DataSource"
-     *    maxActive="100" maxIdle="30" maxWait="10000"
-     *    url="jdbc:mysql://localhost:3306/picturerate?serverTimezone=Europe/Berlin"
-     *    driverClassName="com.mysql.cj.jdbc.Driver"
-     *    username="root" password="root"
-     * />
-     */
     @Resource(name = "jdbc/db")
     private DataSource dataSource;
+    private static final String SQL_FIND_NAME = "SELECT data FROM picture WHERE name = ?";
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String imageName = request.getPathInfo().substring(1);
+        String imageName = request.getParameter("name");
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_FIND_NAME)) {
-                statement.setString(1, imageName);
+            statement.setString(1, imageName);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
