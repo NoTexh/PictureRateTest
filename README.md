@@ -5,11 +5,11 @@ Das Projekt wird im Rahmen der Vorlesung Webprogrammierung der DHBW Karlsruhe en
 ## Technologien
 
 -   Als Applikation-Server kommt Tomcat in der Version 9.0.12 zum Einsatz : https://tomcat.apache.org/download-90.cgi
-    Dazu wird unter Binary Distributions Core: die .zip-Datei benötigt
+    Dazu wird unter Binary Distributions Core: die .zip-Datei benötigt.
 
 -   Als Datenbank-Server wird MySQL in der Community Version verwendet : https://dev.mysql.com/downloads/mysql/
-    Es wird sowohl der Server, die MySQL Workbench als auch der JConnector benötigt
-    PS: Für eine Test-Datenbank wird ein entsprechendes Skript unter WebPages -> res -> picturetable.csv zu finden sein. Diese einfach mit Hilfe von MySQL Workbench in MySQL importieren
+    Es wird sowohl der Server, die MySQL Workbench als auch der JConnector benötigt.
+    PS: Für eine Test-Datenbank wird ein entsprechendes Skript unter WebPages -> res -> picturetable.csv zu finden sein. Diese einfach mit     Hilfe von MySQL Workbench in MySQL importieren
 
 -   NetBeans 9.0 wird als IDE verwendet, dort die Binaries herunterladen : https://netbeans.apache.org/download/nb90/nb90.html
     Dazu soll der Tomcat-Server in die IDE integriert werden. 
