@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inherit-compiler-output="true" inheritJdk="true">
+	<output-test url="file://$MODULE_DIR$/out/test/JspDemo"/>
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="Tomcat 9.0.12" scope="PROVIDED"/>
+	<levels>
+		<level name="Tomcat 9.0.12" value="application_server_libraries"/>
+		<level name="mysql-connector-java-8.0.12" value="project"/>
+	</levels>
+</component>
