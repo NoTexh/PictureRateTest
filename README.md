@@ -25,6 +25,9 @@ Das Projekt wird im Rahmen der Vorlesung Webprogrammierung der DHBW Karlsruhe en
         <role rolename="manager-status"/>
         <user username="admin" password="admin" roles="manager-gui, manager-jmx, manager-script, manager-status"/>
         4. Als Benutzernamen und Passwort admin verwenden
+        5. <Resource name="jdbc/db" auth="Container" type="javax.sql.DataSource"
+              maxActive="100" maxIdle="30" maxWait="10000" username="root" password="root"
+              driverClassName="com.mysql.cj.jdbc.Driver" url="jdbc:mysql://localhost:3306/picturerate?serverTimezone=Europe/Berlin" />
 
 ## Build-Prozess
 
