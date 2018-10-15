@@ -14,6 +14,11 @@ header img{
     display: inline-block;
 }
 
+main img{
+    height: 200px;
+    width: 200px;
+}
+
 header ul{
     margin: 0 60px 0 0;
     float: right;

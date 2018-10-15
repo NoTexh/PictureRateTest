@@ -33,6 +33,7 @@ public class GetImageServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String imageName = request.getPathInfo().substring(1);
+        System.out.println("imagename"+imageName);
 
         try (Connection connection = dataSource.getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_FIND_NAME)) {
                 statement.setString(1, imageName);
@@ -41,8 +42,10 @@ public class GetImageServlet extends HttpServlet {
                 if (resultSet.next()) {
                     byte[] content = resultSet.getBytes("data");
                     response.setContentType(getServletContext().getMimeType(imageName));
+                    System.out.println("Mimetyp" +getServletContext().getMimeType(imageName));
                     response.setContentLength(content.length);
                     response.getOutputStream().write(content);
+                    connection.close();
                 } else {
                     response.sendError(HttpServletResponse.SC_NOT_FOUND); // 404.
                 }
